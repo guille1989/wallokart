@@ -12,7 +12,7 @@ app.use(express.json());
 // CORS (ajusta origins según tu frontend)
 const cors = require('cors');
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:3000', 'https://tu-dominio.com'],
+  origin: ['http://localhost:5173', 'http://localhost:3000', 'https://wallokart-gjcc.vercel.app'],
   methods: ['GET', 'POST', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
