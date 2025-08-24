@@ -24,4 +24,4 @@ app.use('/api/list-mongo', listFromMongo);
 
 
 const port = process.env.PORT || 3001;
-app.listen(port, () => console.log(`API escuchando en http://localhost:${port}`));
+app.listen(port, () => console.log(`API escuchando por puerto:${port}`));
