@@ -1,0 +1,179 @@
+.proyectos-page {
+  flex: 1;
+  padding: 50px 20px;
+  background-color: #FFFFFF;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.page-header h1 {
+  color: #544943;
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.page-header p {
+  color: #847c77;
+  font-size: 1.2rem;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.projects-container {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+.project-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.project-item.reverse {
+  direction: rtl;
+}
+
+.project-item.reverse .project-content {
+  direction: ltr;
+}
+
+.project-image {
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.project-image img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.project-item:hover .project-image img {
+  transform: scale(1.05);
+}
+
+.project-content {
+  padding: 20px 0;
+}
+
+.project-meta {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.category {
+  background: linear-gradient(135deg, #e3742d 0%, #544943 100%);
+  color: white;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.year {
+  background: #847c77;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+}
+
+.project-content h3 {
+  color: white;
+  font-size: 2rem;
+  margin: 0 0 10px 0;
+  line-height: 1.2;
+}
+
+.client {
+  color: #667eea;
+  font-weight: bold;
+  margin: 0 0 20px 0;
+  font-size: 1.1rem;
+}
+
+.description {
+  color: #544943;
+  line-height: 1.6;
+  margin: 0 0 30px 0;
+  font-size: 1rem;
+}
+
+.technologies h4 {
+  color: #544943;
+  font-size: 1rem;
+  margin: 0 0 15px 0;
+}
+
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.tech-tag {
+  background: #404040;
+  color: #CCCCCC;
+  padding: 5px 12px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+}
+
+.project-link {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+.project-link:hover {
+  color: #764ba2;
+}
+
+@media (max-width: 968px) {
+  .project-item,
+  .project-item.reverse {
+    grid-template-columns: 1fr;
+    direction: ltr;
+    gap: 30px;
+  }
+  
+  .project-content {
+    order: 2;
+  }
+  
+  .project-image {
+    order: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-header h1 {
+    font-size: 2rem;
+  }
+  
+  .project-content h3 {
+    font-size: 1.5rem;
+  }
+  
+  .projects-container {
+    gap: 50px;
+  }
+}
