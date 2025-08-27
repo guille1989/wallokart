@@ -1,14 +1,15 @@
-// src/pages/AdminCatalogo.js
 import React, { useState, useEffect } from "react";
 import Uploader from "./Uploader";
 import Galeria from "./Galeria";
 import CategoryMultiSelect from "../components/CategoryMultiSelect";
+import TecnologiasMultiSelect from "../components/TecnologiasMultiselect";
 import TitleField from "../components/TitleField";
 import DescriptionField from "../components/DescriptionField";
+import AnnioField from "../components/AnnioField";
 
 // Si en CRA configuraste proxy a 3001, puedes dejar API_BASE = '' y usar rutas relativas.
 const API_BASE = process.env.REACT_APP_API_BASE || ""; // ej: http://localhost:3001
-const DEFAULT_PREFIX = process.env.REACT_APP_S3_PREFIX || "catalogo/";
+const DEFAULT_PREFIX = process.env.REACT_APP_S3_PREFIX || "proyecto/";
 const MAX_KEYS = Number(process.env.REACT_APP_MAX_KEYS || 60);
 // Si tu bucket es privado y aún no usas CloudFront, pon REACT_APP_SIGNED_URLS=true para que el backend devuelva URLs firmadas temporales.
 const SIGNED = String(process.env.REACT_APP_SIGNED_URLS || "false");
@@ -22,7 +23,8 @@ function filenameFromKey(key) {
   }
 }
 
-export default function AdminCatalogo() {
+//Componente para gestionar el ingreso de proyectos
+export default function AdminProyectos() {
   const [items, setItems] = useState([]); // [{ id, key, url, title, description, category }]
   const [prefix, setPrefix] = useState(DEFAULT_PREFIX);
   const [nextToken, setNextToken] = useState(null);
@@ -32,7 +34,10 @@ export default function AdminCatalogo() {
 
   // ---- Formulario de metadata para las próximas subidas ----
   const [title, setTitle] = useState("");
+  const [client, setClient] = useState("");
+  const [annio, setAnnio] = useState("2025");
   const [category, setCategory] = useState([]);
+  const [technologies, setTechnologies] = useState([]);
   const [description, setDescription] = useState("");
 
   // Carga inicial por prefijo (S3) y enriquecimiento con Mongo
@@ -50,7 +55,7 @@ export default function AdminCatalogo() {
     });
     if (token) qs.set("token", token);
 
-    const res = await fetch(`${API_BASE}/api/list?` + qs.toString());
+    const res = await fetch(`${API_BASE}/api/list-proyectos?` + qs.toString());
     if (!res.ok) {
       const t = await res.text().catch(() => "");
       throw new Error(`Listado falló (${res.status}): ${t}`);
@@ -61,7 +66,7 @@ export default function AdminCatalogo() {
   // Trae metadata desde Mongo y la aplica a la lista (match por s3Key)
   async function mergeMongoMeta(baseItems) {
     try {
-      const res = await fetch(`${API_BASE}/api/list-mongo`);
+      const res = await fetch(`${API_BASE}/api/list-mongo/proyectos`);
       if (!res.ok) return baseItems;
       const data = await res.json();
       const byKey = new Map((data || []).map((d) => [d.s3Key, d]));
@@ -73,6 +78,7 @@ export default function AdminCatalogo() {
               title: m.title || it.title || it.name,
               description: m.description || it.description || "",
               category: m.category || it.category,
+              technologies: m.technologies || it.technologies,
               url: m.image || it.url,
             }
           : it;
@@ -93,6 +99,7 @@ export default function AdminCatalogo() {
         title: filenameFromKey(o.key),
         description: "", // se completará desde Mongo si existe
         category: "", // se completará desde Mongo si existe
+        technologies: "", // se completará desde Mongo si existe
         key: o.key,
         url: o.url,
       }));
@@ -136,6 +143,8 @@ export default function AdminCatalogo() {
     chosenTitle,
     chosenCategory,
     chosenDescription,
+    chosenTechnologies,
+    chosenClient,
     type,
     size,
   }) {
@@ -144,10 +153,13 @@ export default function AdminCatalogo() {
       title: chosenTitle,
       category: chosenCategory,
       description: chosenDescription,
+      technologies: chosenTechnologies,
+      client: chosenClient,
       mime: type,
       size,
+      annio,
     };
-    const res = await fetch(`${API_BASE}/api/images`, {
+    const res = await fetch(`${API_BASE}/api/proyectos`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
@@ -159,7 +171,9 @@ export default function AdminCatalogo() {
   // Llamado por Uploader cuando finaliza una subida
   async function handleUploaded({ key, url, name, type, size }) {
     const chosenTitle = (title || "").trim() || name.replace(/\.[^.]+$/, "");
+    const chosenClient = (client || "").trim();
     const chosenCategory = category.length ? category : [];
+    const chosenTechnologies = technologies.length ? technologies : [];
     const chosenDescription = (description || "").trim();
 
     // pinta en UI inmediatamente con los valores del formulario
@@ -168,8 +182,10 @@ export default function AdminCatalogo() {
         id: crypto.randomUUID(),
         name: chosenTitle,
         title: chosenTitle,
+        client: chosenClient,
         description: chosenDescription,
         category: chosenCategory,
+        technologies: chosenTechnologies,
         key,
         url,
       },
@@ -183,6 +199,8 @@ export default function AdminCatalogo() {
         chosenTitle,
         chosenCategory,
         chosenDescription,
+        chosenTechnologies,
+        chosenClient,
         type,
         size,
       });
@@ -196,6 +214,8 @@ export default function AdminCatalogo() {
                 title: saved.title || it.title,
                 description: saved.description ?? it.description,
                 category: saved.category || it.category,
+                technologies: saved.technologies || it.technologies,
+                client: saved.client || it.client,
               }
             : it
         )
@@ -214,7 +234,7 @@ export default function AdminCatalogo() {
     if (!ok) return;
 
     const res = await fetch(
-      `${API_BASE}/api/images/by-key?key=${encodeURIComponent(
+      `${API_BASE}/api/proyectos/by-key?key=${encodeURIComponent(
         key
       )}&invalidate=true`,
       {
@@ -231,10 +251,8 @@ export default function AdminCatalogo() {
   }
 
   return (
-    <section
-      style={{ width: "50%", margin: "0 auto" }}
-    >
-      <h1>Catálogo</h1>
+    <section style={{ width: "50%", margin: "0 auto" }}>
+      <h1>Proyectos</h1>
 
       {/* --- Formulario de metadata que se aplicará a las próximas subidas --- */}
       <div
@@ -255,12 +273,32 @@ export default function AdminCatalogo() {
             onChange={setTitle}
             maxLength={80}
             required
-            label={"Título"}
+            label={"Nombre del proyecto"}
           />
         </div>
 
+        <div>
+          <TitleField
+            value={client}
+            onChange={setClient}
+            maxLength={80}
+            required
+            label={"Nombre del cliente"}
+            placeholderSuggestion={"Ej: \"Cliente XYZ\""}
+          />
+        </div>
+
+        <AnnioField value={annio} onChange={setAnnio} />
+
         <div style={{ gridColumn: "1 / -1" }}>
           <CategoryMultiSelect value={category} onChange={setCategory} />
+        </div>
+
+        <div style={{ gridColumn: "1 / -1" }}>
+          <TecnologiasMultiSelect
+            value={technologies}
+            onChange={setTechnologies}
+          />
         </div>
 
         <div>
@@ -270,34 +308,39 @@ export default function AdminCatalogo() {
             required
             maxLength={300}
             minLength={10}
-            placeholder={"Arte conceptual para..."}
+            placeholder={"Descripción del proyecto.."}
           />
         </div>
       </div>
 
       {/* Selector de "carpeta" (prefijo) + refresco del listado S3 
-      <div
-        style={{
-          display: "flex",
-          gap: 8,
-          alignItems: "center",
-          marginBottom: 12,
-        }}
-      >
-        <label>Prefijo:</label>
-        <input
-          value={prefix}
-          onChange={(e) => setPrefix(e.target.value)}
-          placeholder="catalogo/2025-08-21/"
-          style={{ flex: 1, padding: 8 }}
-        />
-        <button onClick={loadFirstPage}>Refrescar</button>
-      </div>
-      */}
+          <div
+            style={{
+              display: "flex",
+              gap: 8,
+              alignItems: "center",
+              marginBottom: 12,
+            }}
+          >
+            <label>Prefijo:</label>
+            <input
+              value={prefix}
+              onChange={(e) => setPrefix(e.target.value)}
+              placeholder="catalogo/2025-08-21/"
+              style={{ flex: 1, padding: 8 }}
+            />
+            <button onClick={loadFirstPage}>Refrescar</button>
+          </div>
+          */}
 
-      <Uploader multiple onUploaded={handleUploaded} folder={"catalogo"} flagPresign={"presign"} />
+      <Uploader
+        multiple
+        onUploaded={handleUploaded}
+        folder={"proyecto"}
+        flagPresign={"presign-proyecto"}
+      />
 
-      <h2 style={{ marginTop: 24 }}>Portafolio</h2>
+      <h2 style={{ marginTop: 24 }}>Proyectos</h2>
 
       {loading && <p>Cargando…</p>}
       {error && <p style={{ color: "crimson" }}>{error}</p>}

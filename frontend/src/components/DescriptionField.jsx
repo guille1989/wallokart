@@ -4,7 +4,7 @@ export default function DescriptionField({
   value,
   onChange,
   label = "Descripción",
-  placeholder = "Descripción: Arte conceptual para....",
+  placeholder,
   maxLength = 300,
   minLength = 0,
   required = false,

@@ -25,14 +25,13 @@ function slugify(str = "") {
     .replace(/(^-|-$)/g, "");
 }
 
-export default function TitleField({
+export default function ClientTitleField({
   value,
   onChange,
   filename = "", // opcional: nombre del archivo para sugerir el título
   maxLength = 80,
   required = false,
   label,
-  placeholderSuggestion
 }) {
   const id = useId();
   const [touched, setTouched] = useState(false);
@@ -56,7 +55,7 @@ export default function TitleField({
         <input
           id={id}
           type="text"
-          placeholder={placeholderSuggestion || suggestion || 'Ej: "Explorador Beacon"'}
+          placeholder={suggestion || 'Ej: "Explorador Beacon"'}
           value={current}
           onChange={(e) => onChange(e.target.value.slice(0, maxLength))}
           onBlur={() => setTouched(true)}

@@ -5,7 +5,7 @@ import { buildPublicUrl } from '../lib/cdn';
 const ALLOWED = new Set(['image/jpeg','image/png','image/webp','image/avif','image/gif']);
 const MAX_MB = Number(process.env.REACT_APP_MAX_MB || 10);
 
-export default function Uploader({ multiple = true, onUploaded }) {
+export default function Uploader({ multiple = true, onUploaded, folder, flagPresign }) {
   const [items, setItems] = useState([]); // [{name, progress, url, error}]
   const inputRef = useRef(null);
 
@@ -30,7 +30,7 @@ export default function Uploader({ multiple = true, onUploaded }) {
 
       try {
         const { uploadUrl, key } = await presignUpload({
-          fileName: file.name, contentType: file.type, folder: 'catalogo'
+          fileName: file.name, contentType: file.type, folder, flagPresign
         });
 
         await putWithProgress(uploadUrl, file, p => {

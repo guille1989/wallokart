@@ -1,7 +1,7 @@
 const API_BASE = process.env.REACT_APP_API_BASE || '';
 
-export async function presignUpload({ fileName, contentType, folder = 'catalogo' }) {
-  const res = await fetch(`${API_BASE}/api/uploads/presign`, {
+export async function presignUpload({ fileName, contentType, folder, flagPresign}) {
+  const res = await fetch(`${API_BASE}/api/uploads/${flagPresign}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ fileName, contentType, folder })

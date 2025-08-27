@@ -2,8 +2,11 @@ require("dotenv").config();
 const express = require("express");
 const uploadsRouter = require("./src/routes/uploads");
 const listRouter = require("./src/routes/list");
+const listProyectosRouter = require("./src/routes/listProjects");
 const imagesRouter = require("./src/routes/images");
-const listFromMongo = require("./src/routes/listFromMongo");
+const proyectosRouter = require("./src/routes/proyectos");
+const listFromMongoRouter = require("./src/routes/listFromMongo");
+const uploadsProjectsRouter = require("./src/routes/uploadsProjects");
 
 const app = express();
 app.use(express.json());
@@ -20,14 +23,17 @@ app.use(
       "https://wallokart.s3.us-east-1.amazonaws.com",
     ],
     methods: ["GET", "POST", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    allowedHeaders: ["*"],
   })
 );
 
 app.use("/api/uploads", uploadsRouter);
 app.use("/api/list", listRouter);
+app.use("/api/list-proyectos", listProyectosRouter);
 app.use("/api/images", imagesRouter);
-app.use("/api/list-mongo", listFromMongo);
+app.use("/api/proyectos", proyectosRouter);
+app.use("/api/list-mongo", listFromMongoRouter);
+app.use("/api/uploads-proyectos", uploadsProjectsRouter);
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => console.log(`API escuchando por puerto:${port}`));

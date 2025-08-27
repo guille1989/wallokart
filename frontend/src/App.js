@@ -26,6 +26,7 @@ import gemanSinFondo from "./assets/img/germanSinFondo.png";
 import gatoPortadaAjustado from "./assets/img/gatoPortadaAjustado.jpg";
 
 import AdminCatalogo from "./components/AdminCatalogo";
+import AdminProyectos from "./components/AdminProyectos";
 
 // Componente para la página de inicio con carrusel
 const HomePage = () => {
@@ -270,6 +271,7 @@ function App() {
           <Route path="/proyectos" element={<Proyectos />} />
           <Route path="/contacto" element={<Contacto />} />
           <Route path="/galeria" element={<AdminCatalogo />} />
+          <Route path="/adminproyectos" element={<AdminProyectos />} />
         </Routes>
       </Layout>
     </Router>
