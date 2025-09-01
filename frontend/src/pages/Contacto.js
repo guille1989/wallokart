@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './Contacto.css';
 
+const API_BASE = process.env.REACT_APP_API_BASE || "";
+
 const Contacto = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -16,12 +18,27 @@ const Contacto = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Aquí iría la lógica para enviar el formulario
-    console.log('Formulario enviado:', formData);
-    alert('¡Mensaje enviado! Te contactaremos pronto.');
-    setFormData({ name: '', email: '', subject: '', message: '' });
+    try {
+      const res = await fetch(`${API_BASE}/api/send-mail`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to: 'wallokart@gmail.com',
+          subject: `[Contacto] ${formData.subject}`,
+          text: `Nombre: ${formData.name}\nEmail: ${formData.email}\nMensaje: ${formData.message}`
+        })
+      });
+      if (!res.ok) {
+        const t = await res.text().catch(() => '');
+        throw new Error(`No se pudo enviar el mensaje (${res.status}): ${t}`);
+      }
+      alert('¡Mensaje enviado! Te contactaremos pronto.');
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    } catch (err) {
+      alert('Error al enviar el mensaje: ' + err.message);
+    }
   };
 
   return (

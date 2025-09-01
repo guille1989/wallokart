@@ -109,22 +109,26 @@ const Proyectos = () => {
               className={`project-item ${index % 2 === 1 ? "reverse" : ""}`}
             >
               <div className="project-image">
-                <img src={project.image} alt={project.title} />
+                <img src={project.image} alt={project.title} loading="lazy" />
               </div>
               <div className="project-content">
-                <h4>Categorías:</h4>
-                <div className="project-meta">
-                  {project.category.map((item, idx) => (
-                    <span key={idx} className="category">
-                      {item}
-                    </span>
-                  ))}
-                  <span className="year">{project.annio}</span>
-                </div>
-                <h3>{project.title}</h3>
+                <h2 className="title-proyect">{project.title}</h2>
+
+                {/* El título también se muestra aquí si lo deseas */}
+                {/* <h3>{project.title}</h3> */}
                 <p className="client">Cliente: {project.client}</p>
                 <p className="description">{project.description}</p>
                 <div className="technologies">
+                  <h4>Categorías:</h4>
+                  <div className="project-meta">
+                    {project.category.map((item, idx) => (
+                      <span key={idx} className="category">
+                        {item}
+                      </span>
+                    ))}
+                    <span className="year">{project.annio}</span>
+                  </div>
+
                   <h4>Tecnologías utilizadas:</h4>
                   <div className="tech-tags">
                     {project.technologies.map((tech, i) => (

@@ -6,7 +6,9 @@ const listProyectosRouter = require("./src/routes/listProjects");
 const imagesRouter = require("./src/routes/images");
 const proyectosRouter = require("./src/routes/proyectos");
 const listFromMongoRouter = require("./src/routes/listFromMongo");
+
 const uploadsProjectsRouter = require("./src/routes/uploadsProjects");
+const mailRouter = require("./src/routes/mail");
 
 const app = express();
 app.use(express.json());
@@ -27,6 +29,7 @@ app.use(
   })
 );
 
+
 app.use("/api/uploads", uploadsRouter);
 app.use("/api/list", listRouter);
 app.use("/api/list-proyectos", listProyectosRouter);
@@ -34,6 +37,7 @@ app.use("/api/images", imagesRouter);
 app.use("/api/proyectos", proyectosRouter);
 app.use("/api/list-mongo", listFromMongoRouter);
 app.use("/api/uploads-proyectos", uploadsProjectsRouter);
+app.use("/api/send-mail", mailRouter);
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => console.log(`API escuchando por puerto:${port}`));

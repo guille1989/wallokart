@@ -180,3 +180,9 @@
     gap: 50px;
   }
 }
+
+.title-proyect {
+  color: black;
+  font-size: 1.5rem;
+  margin: 0 0 10px 0;
+}
