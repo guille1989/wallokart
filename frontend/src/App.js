@@ -270,7 +270,7 @@ function App() {
           <Route path="/tienda" element={<Tienda />} />
           <Route path="/proyectos" element={<Proyectos />} />
           <Route path="/contacto" element={<Contacto />} />
-          <Route path="/galeria" element={<AdminCatalogo />} />
+          <Route path="/admingaleria" element={<AdminCatalogo />} />
           <Route path="/adminproyectos" element={<AdminProyectos />} />
         </Routes>
       </Layout>

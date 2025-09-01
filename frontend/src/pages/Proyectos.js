@@ -112,8 +112,13 @@ const Proyectos = () => {
                 <img src={project.image} alt={project.title} />
               </div>
               <div className="project-content">
+                <h4>Categorías:</h4>
                 <div className="project-meta">
-                  <span className="category">{project.category}</span>
+                  {project.category.map((item, idx) => (
+                    <span key={idx} className="category">
+                      {item}
+                    </span>
+                  ))}
                   <span className="year">{project.annio}</span>
                 </div>
                 <h3>{project.title}</h3>

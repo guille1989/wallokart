@@ -123,18 +123,14 @@ const Portafolio = () => {
                   <div className="portfolio-overlay">
                     <h3>{item.title}</h3>
                     <p>{item.description || "Sin descripción"}</p>
-                    <span className="category">
-                      {Array.isArray(item.category)
-                        ? item.category
-                            .map(
-                              (catId) =>
-                                categories.find((cat) => cat.id === catId)
-                                  ?.name || catId
-                            )
-                            .join(", ")
-                        : categories.find((cat) => cat.id === item.category)
-                            ?.name || item.category}
-                    </span>
+
+                    <div className="category-tags">
+                      {item.category.map((catId) => (
+                        <span key={catId} className="category">
+                          {catId}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>

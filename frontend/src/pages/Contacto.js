@@ -63,7 +63,7 @@ const Contacto = () => {
               <div className="social-links">
                 <a href="#" className="social-btn">Facebook</a>
                 <a href="#" className="social-btn">Instagram</a>
-                <a href="#" className="social-btn">Twitter</a>
+                <a href="#" className="social-btn">X</a>
               </div>
             </div>
           </div>
