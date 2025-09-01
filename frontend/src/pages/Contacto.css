@@ -26,14 +26,15 @@
 }
 
 .contact-content {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
+  display: flex;
   gap: 60px;
-  align-items: start;
+  align-items: center;
+  justify-content: center;
 }
 
 .contact-info {
   display: flex;
+  width: 50%;
   flex-direction: column;
   gap: 20px;
 }

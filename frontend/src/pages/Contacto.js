@@ -60,13 +60,13 @@ const Contacto = () => {
             <div className="info-card">
               <div className="info-icon">📱</div>
               <h3>Teléfono</h3>
-              <p>+1 (555) 123-4567</p>
+              <p>+57 (310) 400-7098</p>  
             </div>
             
             <div className="info-card">
               <div className="info-icon">📍</div>
               <h3>Ubicación</h3>
-              <p>Ciudad, País</p>
+              <p>Popayán, Colombia</p>
             </div>
             
             <div className="info-card">
@@ -85,6 +85,7 @@ const Contacto = () => {
             </div>
           </div>
 
+          {/** Formulario de contacto 
           <form className="contact-form" onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="name">Nombre completo</label>
@@ -138,6 +139,7 @@ const Contacto = () => {
               Enviar Mensaje
             </button>
           </form>
+          */}
         </div>
       </div>
     </div>
