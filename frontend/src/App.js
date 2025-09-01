@@ -228,23 +228,25 @@ const Layout = ({ children }) => {
             <a href="#privacy">Privacidad</a>
           </div>
           <div className="social-media">
-            <a href="#facebook" className="social-link" title="Facebook">
+            <a href="https://www.facebook.com/dr.wallok" className="social-link" title="Facebook">
               <img
                 src={facebookIcon}
                 alt="Facebook"
                 className="social-icon-img"
               />
             </a>
-            <a href="#instagram" className="social-link" title="Instagram">
+            <a href="https://www.instagram.com/wallok_art" className="social-link" title="Instagram">
               <img
                 src={instagramIcon}
                 alt="Instagram"
                 className="social-icon-img"
               />
             </a>
+            {/* 
             <a href="#twitter" className="social-link" title="X (Twitter)">
               <img src={xIcon} alt="X (Twitter)" className="social-icon-img" />
             </a>
+            */}
           </div>
         </div>
       </footer>

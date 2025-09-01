@@ -78,9 +78,9 @@ const Contacto = () => {
             <div className="social-contact">
               <h3>Sígueme en redes</h3>
               <div className="social-links">
-                <a href="#" className="social-btn">Facebook</a>
-                <a href="#" className="social-btn">Instagram</a>
-                <a href="#" className="social-btn">X</a>
+                <a href="https://www.facebook.com/dr.wallok" className="social-btn">Facebook</a>
+                <a href="https://www.instagram.com/wallok_art" className="social-btn">Instagram</a>
+                {/* <a href="#" className="social-btn">X</a> */}
               </div>
             </div>
           </div>
