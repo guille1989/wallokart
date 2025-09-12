@@ -13,7 +13,7 @@ import {
 } from "react-router-dom";
 
 // Importar todas las páginas
-import { Home, Portafolio, Tienda, Proyectos, Contacto } from "./pages";
+import { Home, Portafolio, Tienda, Proyectos, Contacto, AcercaDe, Privacidad } from "./pages";
 
 //Importing all img from assets/img/imgCatalogo
 import img01 from "./assets/img/imgCatalogo/10ExploreBeacon.jpg";
@@ -223,9 +223,9 @@ const Layout = ({ children }) => {
         <div className="footer-content">
           <p>&copy; 2025 WalloKart. Todos los derechos reservados.</p>
           <div className="footer-links">
-            <Link to="#acercade">Acerca de</Link>
+            <Link to="/acercade">Acerca de</Link>
             <Link to="/contacto">Contacto</Link>
-            <a href="#privacy">Privacidad</a>
+            <Link to="/privacidad">Privacidad</Link>
           </div>
           <div className="social-media">
             <a href="https://www.facebook.com/dr.wallok" className="social-link" title="Facebook">
@@ -274,6 +274,8 @@ function App() {
           <Route path="/contacto" element={<Contacto />} />
           <Route path="/admingaleria" element={<AdminCatalogo />} />
           <Route path="/adminproyectos" element={<AdminProyectos />} />
+          <Route path="/acercade" element={<AcercaDe />} />
+          <Route path="/privacidad" element={<Privacidad />} />
         </Routes>
       </Layout>
     </Router>
