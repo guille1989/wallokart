@@ -23,6 +23,7 @@ app.use(
       "https://wallokart-gjcc.vercel.app",
       "https://wallokart.vercel.app",
       "https://wallokart.s3.us-east-1.amazonaws.com",
+      "https://www.wallokart.com"
     ],
     methods: ["GET", "POST", "DELETE"],
     allowedHeaders: ["*"],
