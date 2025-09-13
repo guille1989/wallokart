@@ -344,7 +344,8 @@
 @media (max-width: 768px) {
   .content-container {
     min-height: 300px;
-    padding: 0;
+    margin-left: -20px;
+    padding: 0%;
     width: 100%;
   }
   .content-overlay {
