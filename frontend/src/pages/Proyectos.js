@@ -151,6 +151,9 @@ const Proyectos = () => {
               </div>
             </div>
           ))}
+          {filteredItems.length === 0 && (
+              <p>No hay proyectos.</p>
+            )}
         </div>
         )}
       </div>
