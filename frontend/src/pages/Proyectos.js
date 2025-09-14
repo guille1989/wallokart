@@ -102,6 +102,11 @@ const Proyectos = () => {
           </p>
         </header>
 
+
+        {loading && <p>Cargando…</p>}
+        {error && <p style={{ color: "crimson" }}>{error}</p>}
+
+        {!loading && !error && (
         <div className="projects-container">
           {filteredItems.map((project, index) => (
             <div
@@ -147,6 +152,7 @@ const Proyectos = () => {
             </div>
           ))}
         </div>
+        )}
       </div>
     </div>
   );

@@ -344,7 +344,7 @@
 }
 
 /* Responsive Content Container */
-@media (max-width: 768px) {
+@media (max-width: 1400px) {
   .content-container {
     min-height: 300px;
     margin-left: -20px;
@@ -513,7 +513,7 @@
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 1400px) {
   .header-content {
     flex-direction: column;
     height: auto;
@@ -678,7 +678,7 @@
   transform: scale(1.1);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1400px) {
   .footer-content {
     flex-direction: column;
     gap: 15px;
@@ -741,7 +741,7 @@
 }
 
 /* Responsive Chat Widget */
-@media (max-width: 768px) {
+@media (max-width: 1400px) {
   .chat-widget {
     bottom: 20px;
     right: 20px;
