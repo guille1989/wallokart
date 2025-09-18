@@ -56,13 +56,14 @@ const Contacto = () => {
               <h3>Email</h3>
               <p>wallokart@gmail.com</p>
             </div>
-            
+
+            {/* 
             <div className="info-card">
               <div className="info-icon">📱</div>
               <h3>Teléfono</h3>
               <p>+57 (310) 400-7098</p>  
             </div>
-            
+            */}
             <div className="info-card">
               <div className="info-icon">📍</div>
               <h3>Ubicación</h3>

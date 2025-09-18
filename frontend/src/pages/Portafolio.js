@@ -25,6 +25,41 @@ const Portafolio = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [prefix, setPrefix] = useState(DEFAULT_PREFIX);
+  // Estado para modal de imagen
+  const [modalImg, setModalImg] = useState(null);
+  // Para navegación con flechas
+  const [modalIdx, setModalIdx] = useState(-1);
+
+  // Abrir modal y guardar índice
+  const openModal = (item) => {
+    const idx = filteredItems.findIndex((i) => i.id === item.id);
+    setModalImg(item);
+    setModalIdx(idx);
+  };
+
+  // Navegación modal
+  const goPrev = (e) => {
+    e && e.stopPropagation();
+    if (modalIdx > 0) {
+      const prev = filteredItems[modalIdx - 1];
+      setModalImg(prev);
+      setModalIdx(modalIdx - 1);
+    }
+  };
+  const goNext = (e) => {
+    e && e.stopPropagation();
+    if (modalIdx < filteredItems.length - 1) {
+      const next = filteredItems[modalIdx + 1];
+      setModalImg(next);
+      setModalIdx(modalIdx + 1);
+    }
+  };
+
+  // Cerrar modal
+  const closeModal = () => {
+    setModalImg(null);
+    setModalIdx(-1);
+  };
 
   async function fetchPage(token = null) {
     const res = await fetch(`${API_BASE}/api/list-mongo`);
@@ -115,30 +150,52 @@ const Portafolio = () => {
         {error && <p style={{ color: "crimson" }}>{error}</p>}
 
         {!loading && !error && (
-          <div className="portfolio-grid">
-            {filteredItems.map((item) => (
-              <div key={item.id} className="portfolio-item">
-                <div className="portfolio-image">
-                  <img src={item.image} alt={item.title} loading="lazy" />
-                  <div className="portfolio-overlay">
-                    <h3>{item.title}</h3>
-                    <p>{item.description || "Sin descripción"}</p>
+          <>
+            <div className="portfolio-grid">
+              {filteredItems.map((item) => (
+                <div key={item.id} className="portfolio-item">
+                  <div className="portfolio-image" onClick={() => openModal(item)} style={{cursor:'zoom-in'}}>
+                    <img src={item.image} alt={item.title} loading="lazy" />
+                    <div className="portfolio-overlay">
+                      <h3>{item.title}</h3>
+                      <p>{item.description || "Sin descripción"}</p>
 
-                    <div className="category-tags">
-                      {item.category.map((catId) => (
-                        <span key={catId} className="category">
-                          {catId}
-                        </span>
-                      ))}
+                      <div className="category-tags">
+                        {item.category.map((catId) => (
+                          <span key={catId} className="category">
+                            {catId}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
+              ))}
+              {filteredItems.length === 0 && (
+                <p>No hay elementos en esta categoría.</p>
+              )}
+            </div>
+            {/* Modal para imagen ampliada */}
+            {modalImg && (
+              <div className="modal-img-bg" onClick={closeModal}>
+                <div className="modal-img-content" onClick={e => e.stopPropagation()}>
+                  {/* Flecha izquierda 
+                  {modalIdx > 0 && (
+                    <button className="modal-img-arrow left" onClick={goPrev} title="Anterior" aria-label="Anterior">&#8592;</button>
+                  )}*/}
+                  <img src={modalImg.image} alt={modalImg.title} />
+                  {/* Flecha derecha 
+                  {modalIdx < filteredItems.length - 1 && (
+                    <button className="modal-img-arrow right" onClick={goNext} title="Siguiente" aria-label="Siguiente">&#8594;</button>
+                  )}*/}
+                  <div className="modal-img-caption">
+                    <h3>{modalImg.title}</h3>
+                    <p>{modalImg.description}</p>
+                  </div>
+                </div>
               </div>
-            ))}
-            {filteredItems.length === 0 && (
-              <p>No hay elementos en esta categoría.</p>
             )}
-          </div>
+          </>
         )}
       </div>
     </div>

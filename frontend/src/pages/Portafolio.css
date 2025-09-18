@@ -1,3 +1,114 @@
+/* Flechas de navegación para el modal de imagen */
+.modal-img-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  border: none;
+  color: #fff;
+  font-size: 2.5rem;
+  padding: 0 18px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 3;
+  transition: background 0.2s, color 0.2s;
+  opacity: 0.85;
+}
+.modal-img-arrow.left {
+  left: -32px;
+}
+.modal-img-arrow.right {
+  right: -32px;
+}
+.modal-img-arrow:hover {
+  background: #fff;
+  color: #222;
+  opacity: 1;
+}
+@media (max-width: 700px) {
+  .modal-img-arrow.left {
+    left: 0;
+  }
+  .modal-img-arrow.right {
+    right: 0;
+  }
+}
+/* --- Modal para imagen ampliada en Portafolio --- */
+.modal-img-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.85);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeInModalBg 0.2s;
+}
+
+@keyframes fadeInModalBg {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-img-content {
+  position: relative;
+  background: #222;
+  border-radius: 12px;
+  box-shadow: 0 4px 32px 0 rgba(0,0,0,0.25);
+  padding: 24px 24px 16px 24px;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeInModalContent 0.2s;
+}
+
+@keyframes fadeInModalContent {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal-img-content img {
+  max-width: 80vw;
+  max-height: 65vh;
+  border-radius: 8px;
+  box-shadow: 0 2px 16px 0 rgba(0,0,0,0.18);
+  background: #fff;
+}
+
+.modal-img-close {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2.2rem;
+  cursor: pointer;
+  z-index: 2;
+  transition: color 0.2s;
+}
+.modal-img-close:hover {
+  color: #ff5252;
+}
+
+.modal-img-caption {
+  margin-top: 18px;
+  color: #fff;
+  text-align: center;
+}
+.modal-img-caption h3 {
+  margin-bottom: 6px;
+  font-size: 1.3rem;
+}
+.modal-img-caption p {
+  font-size: 1.05rem;
+  color: #e0e0e0;
+}
 .portafolio-page {
   flex: 1;
   padding: 50px 20px;

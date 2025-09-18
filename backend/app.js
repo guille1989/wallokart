@@ -10,6 +10,8 @@ const listFromMongoRouter = require("./src/routes/listFromMongo");
 const uploadsProjectsRouter = require("./src/routes/uploadsProjects");
 const mailRouter = require("./src/routes/mail");
 
+const categoriesRouter = require("./src/routes/categories");
+
 const app = express();
 app.use(express.json());
 
@@ -39,6 +41,7 @@ app.use("/api/proyectos", proyectosRouter);
 app.use("/api/list-mongo", listFromMongoRouter);
 app.use("/api/uploads-proyectos", uploadsProjectsRouter);
 app.use("/api/send-mail", mailRouter);
+app.use("/api/categories", categoriesRouter);
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => console.log(`API escuchando por puerto:${port}`));
